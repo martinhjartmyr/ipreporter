@@ -6,6 +6,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 	"os"
+	"time"
 )
 
 var region = os.Getenv("REGION")
@@ -48,6 +49,9 @@ func putAlias(ae *aliasEntry) error {
 			},
 			"ip": {
 				S: aws.String(ae.IP),
+			},
+			"timestamp": {
+				S: aws.String(ae.Timestamp.Format(time.RFC3339)),
 			},
 		},
 	}

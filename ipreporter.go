@@ -3,14 +3,16 @@ package main
 import (
 	"encoding/json"
 	"os"
+	"time"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
 type aliasEntry struct {
-	Alias string `json:"alias"`
-	IP    string `json:"ip"`
+	Alias     string    `json:"alias"`
+	IP        string    `json:"ip"`
+	Timestamp time.Time `json:"timestamp"`
 }
 
 func router(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
@@ -44,7 +46,11 @@ func put(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, err
 		}, nil
 	}
 
-	ae := aliasEntry{Alias: alias, IP: req.RequestContext.Identity.SourceIP}
+	ae := aliasEntry{
+		Alias:     alias,
+		IP:        req.RequestContext.Identity.SourceIP,
+		Timestamp: time.Now(),
+	}
 	err := putAlias(&ae)
 	if err != nil {
 		return events.APIGatewayProxyResponse{
