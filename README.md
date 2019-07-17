@@ -21,12 +21,12 @@ TABLE_NAME=ipReporter // DynamoDB table name
 
 Crontab updating the IP every other hour:
 ```
-0 */2 * * * curl -H "x-api-key:changeMe" -X PUT https://xxxx.xxxxxx.se/{ALIAS}  > /dev/null 2>&1
+0 */2 * * * curl -H "x-api-key:changeMe" -X PUT https://xxxx.xxxxxx.se/{ALIAS} > /dev/null 2>&1
 ```
 
 Retrieving the IP:
 ```
 curl -H "x-api-key:changeMe" https://xxxx.xxxxxx.se/{ALIAS}
-Output: {"alias":"{ALIAS}","ip":"xx.xxx.xxx.xx"}
+Output: {"alias":"{ALIAS}","ip":"xx.xxx.xxx.xx","timestamp":"2019-07-17T07:55:10Z"}
 ```
 
